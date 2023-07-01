@@ -1,0 +1,151 @@
+.container{
+    position: relative;
+    /* margin-top: -55px; */
+    padding: 0;
+    margin: auto;
+    width: 96%;
+    border: 2px solid red;
+    height: 94vh;
+    display: flex;
+}
+.firstcontainer{
+    width: 15%;
+    border: 2px solid green;
+
+}
+.menucontainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between  ;
+    
+}
+.menucontainer .menutitle p {
+    position: relative;
+    margin-top: 5px;
+    margin-left: 5px; 
+    font-size: 30px;
+}
+
+.menucontainer .iconcontainer i{
+    position: relative;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+/* the following code is for search bar */
+
+.searchbar{
+    position: relative;
+    margin-left: 15px;
+    
+}
+.searchbar input{
+     height: 22px;
+}
+.searchbar button{
+    
+    height: 28px;
+}
+
+
+/* following cod eis for tasks */
+
+.tasks{
+    position: relative;
+    margin-top: 8%;
+    width: 96%;
+    margin-left: 4%;
+    border: 1px solid yellowgreen;
+    
+}
+.tasks p {
+    font-size: 22px;
+
+}
+tasks ul{
+    text-align: justify;
+}
+.tasks ul li{
+    margin-top: 7%;
+    list-style: none;
+     
+    
+}
+.tasks ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: 22px;
+    margin-left: 8px;
+    text-align: justify;
+}
+.tasks ul li .listtitle{
+    position: relative;
+       margin-left: 5px;
+       text-align: justify;
+    
+}
+.tasks ul li .numberinfo{
+     
+    position: relative;
+    margin-left: 8px;
+    font-size: 22px;
+    text-align: left;
+    float: right;
+    margin-right: 20px;
+
+   
+}
+
+
+/* the following css is for list */
+.list #taskhead{
+    position: relative;
+    /* left: 2%; */
+    padding: 5px;
+    font-size: 22px;
+}
+.list{
+    border: 1px solid black;
+    width: 96%;
+    height:30% ;
+    overflow-y: scroll;
+     
+}
+.list ul{
+    list-style: none;
+}
+.list ul li {
+    font-size: 1.3rem;
+}
+.list ul li span img{
+    /* width: 19px; */
+    position: relative;
+    width: 11%;
+    margin-right: 8%;
+}
+.list ul li span   {
+  font-size: 1.4rem;
+  line-height: 29px 
+}
+.list ul li .num {
+   float: right;
+   margin-right: 5%;
+
+}
+
+.smallfooter{
+    width: 100%;
+    border: 1px solid blueviolet;
+}
+.smallfooter ul li a{
+    text-decoration: none;
+    color: black;
+    margin-left: 0.5rem;
+}
+.smallfooter ul li{
+    font-size: 1.3rem;
+    position: relative;
+    list-style: none;
+    margin-top: 0.5rem;
+   
+}

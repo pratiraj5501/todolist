@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/14850a9668.js" crossorigin="anonymous"></script>
+    <style>
+        .popup{
+            display: none;
+             position: relative;
+            width: 300px;
+            height: 200px;
+            background: yellow;
+            border: 1px solid red;
+            top: 150px;
+            left: 400px;
+            border-radius: 10px;
+           
+        }
+        
+        .checkme{
+            display: block;
+            width: 100%;
+            height: 100%;
+          
+        }
+        .checkme i{
+            position: relative;
+            font-size: 25px;
+            top: 15px;
+            display:block;
+            left: 40%;
+        }
+        .checkme input{
+            margin-top: 15%;
+            padding: 7px;
+            margin-left: 22%;
+            display: block;
+            text-align: center;
+        }
+        .checkme button{
+            width: 82px;
+            margin-top: 25px;
+            padding: 10px 15px;
+            color: #34495e;
+            text-transform: uppercase;
+            font-size: 18px;
+            box-shadow: 6px 6px 29px -4px rgba(0,0,0,0.75);
+            border: none;
+            border-radius: 7px;
+            margin-left: 30%;
+            cursor: pointer;
+        }
+        .fa-sharp{
+            position: relative;
+            font-size: 22px;
+            width: 22px;
+            height: 22px;
+            top: -15px;
+            left: 295px;
+            cursor: pointer;
+            background: #FF7A59;
+            border: 1px solid black;
+            border-radius: 50%;
+            box-shadow: 6px 6px 29px -4px rgba(0,0,0,0.75) ;
+            text-align: center;
+            
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <button id="c" onclick="display()">c</button>
+    <div class="popup">
+        <div class="closeit" onclick="close()"> 
+        <i class="fa-sharp fa-solid fa-xmark" onclick="closeii()"></i></div>
+       <div class="checkme">
+        <i class="fa-solid fa-list-check"></i>
+        <form action="">
+             
+            <input type="text" placeholder="TaskName">
+            <button  > submit</button>
+        </form>
+     
+         </div>
+    </div>
+    
+     <script>
+        let c=document.getElementById("c");
+        function display(){
+            document.querySelector('.popup').style.display='flex';
+        }
+
+        function close(){
+            
+            console.log("hi there ");
+        }
+         function closeii(){
+            console.log("okkk");
+            document.querySelector('.popup').style.display='none';
+         }
+     </script>
+</body>
+</html>
