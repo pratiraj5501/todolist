@@ -1,5 +1,6 @@
 <?php
 session_start(); // for the random opt confirmation
+require_once "../db_scripts/connection.php";
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -39,6 +40,7 @@ try {
     }
 
     $_SESSION['generatedOTP'] = $random_number;
+    $_SESSION['userEmail'] = $getemail;
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
@@ -49,6 +51,10 @@ try {
     $mail->send(); // sends the email.
 
     echo 'Message has been sent';
+
+    //Redirecting to the confirmation page
+    Redirect("verifyOTP.php",true);
+
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
