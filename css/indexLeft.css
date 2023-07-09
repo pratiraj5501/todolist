@@ -114,8 +114,10 @@ tasks ul{
 .list ul{
     list-style: none;
 }
+ 
 .list ul li {
     font-size: 1.3rem;
+     
 }
 .list ul li span img{
     /* width: 19px; */
@@ -129,6 +131,7 @@ tasks ul{
 }
 .list ul li .num {
    float: right;
+   color:navy;
    margin-right: 5%;
 
 }
