@@ -1,5 +1,7 @@
 <?php
 session_start(); // for the random opt confirmation
+require_once "..//db_scripts/fetchSmtpToken.php";
+require_once "../db_scripts/connection.php";
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -23,8 +25,8 @@ try {
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'busxnoreplay@gmail.com'; // Get a new email for to-do list site
-    $mail->Password   = 'jlpwnvwpukyzjxpm'; //fectch this from the database not here directly
+    $mail->Username   = $serverUser; // Get a new email for to-do list site
+    $mail->Password   = $serverPass; //fectch this from the database not here directly
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -39,6 +41,7 @@ try {
     }
 
     $_SESSION['generatedOTP'] = $random_number;
+    $_SESSION['userEmail'] = $getemail;
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
@@ -49,6 +52,10 @@ try {
     $mail->send(); // sends the email.
 
     echo 'Message has been sent';
+
+    //Redirecting to the confirmation page
+    Redirect("verifyOTP.php",true);
+
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
