@@ -10,9 +10,10 @@
             margin: 0;
             padding: 0;
             font-family: montserrat;
-            background: linear-gradient(120deg,#2980b9,#8e44ad);
+            background: linear-gradient(90deg,#2980b9,#8e44ad);
             height: 100vh;
            overflow: hidden;
+           background: white;
         }
         .center{
             position: absolute;
@@ -126,33 +127,105 @@
         body img{
             opacity: 1;
         }
+        button{
+            width: 150px;;
+            height: 40px;
+            border-radius: 35px;
+            margin-left: 28%;
+            margin-bottom: 10%;
+            border: none;
+           
+            background: linear-gradient(120deg,#ED4264,#FFEDBC);
+              
+        }
+        .maindiv{
+            display: flex;
+        }
+        .leftdiv{
+            width: 10%;
+            height: 40%;
+            
+
+        }
+        .leftimg img{
+            margin-top: 6%;
+            height: 400px;
+        }
+        .rightimg{
+            margin-left: 35%;
+        }
+        .rightimg img{
+            height: 500px;
+        }
     </style>
-    <title>Login</title>
+    <title>Sign Up</title>
 </head>
 <body>
+    <div class="maindiv">
+        <div class="leftimg"> 
+            <img src="../images/trial1.jpeg" alt="">
+
+        </div>
+
+    
     
     <div class="center">
-        <h1>Login</h1>
-        <form action="../db_scripts/userLogin.php" method="post">
-                <div class="txt_field"> 
+        <h1>Sign Up</h1>
+        <form action="../db_scripts/signUp.php" method="post">
+                <!-- <div class="txt_field"> 
                     <input type="text" required name="username">
                     <span></span>
                     <label> Username</label>
                 </div>
+                <div class="txt_field"> 
+                    <input type="text" required name="lastname">
+                    <span></span>
+                    <label> Lastname</label>
+                </div> -->
+                <div class="txt_field"> 
+                    <input type="email" required name="email">
+                    <span></span>
+                    <label> Email</label>
+                </div>
+                <div class="txt_field"> 
+                    <input type="date" required name="date">
+                    <span></span>
+                    <label> DOB</label>
+                </div>
                 <div class="txt_field">
-                    <input type="password" required name="password">
+                    <input type="password" id="pass" required name="password">
                     <span></span>
                     <label> Password</label>
                 </div>
-                <div class="pass"> <a href="forgotPassword.html" style="color:steelblue;">  Forgot password ?</a></div>
-                <input type="submit" value="Login">
-                <div class="signup_link">
-                    Not a Member ? <a href="#">SignUp</a>
+                <div class="txt_field">
+                    <input type="password" id="pass1" required name="password">
+                    <span></span>
+                    <label> Confirm Password</label>
                 </div>
 
+                <button type="submit"> Sign Up</button>
+                <!-- <button> submit</button> -->
+                
+               
 
         </form>
     </div>
-    
+    <div class="rightimg">
+        <img src="../images/trial3.jpeg" alt="">
+
+    </div>
+    </div>
+    <script>
+        let pass=document.getElementById('pass');
+        let pass1=document.getElementById('pass1');
+        console.log(pass);
+        console.log(pass1);
+        if(pass==pass1){
+            console.log("ok");
+        }
+        else{
+            console.log("Not ok")
+        }
+    </script>
 </body>
 </html>
