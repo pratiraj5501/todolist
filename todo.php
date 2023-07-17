@@ -1,13 +1,12 @@
 <?php
 session_start();
-require_once 'db_scripts/connection.php';
+// require_once 'db_scripts/connection.php';
 require_once 'db_conn.php';
 if (!isset($_SESSION['user'])) {
     session_destroy();
     Redirect('loginAndSignup/login.php');
 }
-
-
+$userId = $_SESSION['user_id'];
 ?>
 
 <!DOCTYPE html>
@@ -52,18 +51,20 @@ if (!isset($_SESSION['user'])) {
                     <?php if (isset($_GET['mess']) && $_GET['mess'] == 'error') { ?>
                         <input type="text" name="title" style="border-color: #ff6666"
                             placeholder="This field is required" />
+                        <input type="hidden" hidden value="<?php echo $userId;?>">
                         <input min="<?php echo date('Y-m-d'); ?>" type="date" name="expDate">
                         <button type="submit">Add &nbsp; <span>&#43;</span></button>
 
                     <?php } else { ?>
                         <input type="text" name="title" placeholder="What do you need to do?" />
+                        <input type="hidden" hidden name="user_id" value="<?php echo $userId;?>">
                         <input min="<?php echo date('Y-m-d'); ?>" type="date" name="expDate">
                         <button type="submit">Add &nbsp; <span>&#43;</span></button>
                     <?php } ?>
                 </form>
             </div>
             <?php
-            $todos = $conn2->query("SELECT * FROM todos ORDER BY id DESC");
+            $todos = $conn->query("SELECT * FROM active_tasks WHERE user_id='$userId' ORDER BY end_date ASC;");
             ?>
             <div class="show-todo-section">
                 <?php if ($todos->rowCount() <= 0) { ?>
@@ -78,7 +79,7 @@ if (!isset($_SESSION['user'])) {
                 <?php while ($todo = $todos->fetch(PDO::FETCH_ASSOC)) { ?>
                     <div class="todo-item">
                         <span id="<?php echo $todo['id']; ?>" class="remove-to-do">x</span>
-                        <?php if ($todo['checked']) { ?>
+                        <?php if ($todo['status']) { ?>
                             <input type="checkbox" class="check-box" data-todo-id="<?php echo $todo['id']; ?>" checked />
                             <h2 class="checked">
                                 <?php echo $todo['title'] ?>
@@ -93,18 +94,20 @@ if (!isset($_SESSION['user'])) {
                         <small>Created:
                             <?php echo $todo['date_time'] ?>
                         </small>
+                        <?php if($todo['end_date'] != null) {?>
                         <small>Expires On:
                             <?php echo $todo['end_date'] ?>
-                        </small>
-                        <small>Days Left:
+                        </small><?php } ?>
+                        <small>Expires:
                             <?php $endDate = $todo['end_date'];
                             $earlier = new DateTime();
                             $later = new DateTime($endDate);
                             $pos_diff = $earlier->diff($later)->format("%r%a");
                             if ($pos_diff == 0) {
-                                $pos_diff = "Today";
-                            }?>
-                            <span style="color:red;"><?=$pos_diff?></span>
+                                $pos_diff = "Today";?>
+                                <span style="color:red;"><?=$pos_diff?></span><?php
+                            }else{?>
+                            <span style="color:red;"><?=$pos_diff . ' days left'?></span><?php } ?>
                         </small>
                     </div>
                 <?php } ?>

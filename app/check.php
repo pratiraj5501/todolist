@@ -4,27 +4,28 @@ if(isset($_POST['id'])){
     require '../db_conn.php';
 
     $id = $_POST['id'];
+    $userId = $_POST['user_id'];
 
     if(empty($id)){
        echo 'error';
     }else {
-        $todos = $conn2->prepare("SELECT id, checked FROM todos WHERE id=?");
+        $todos = $conn->prepare("SELECT * FROM active_tasks WHERE id=? AND user_id='$userId'");
         $todos->execute([$id]);
 
         $todo = $todos->fetch();
         $uId = $todo['id'];
-        $checked = $todo['checked'];
-
+        $checked = $todo['status'];
+        $title = $todo['title'];
         $uChecked = $checked ? 0 : 1;
 
-        $res = $conn2->query("UPDATE todos SET checked=$uChecked WHERE id=$uId");
-
+        $res = $conn->query("UPDATE `active_tasks` SET status=$uChecked WHERE id=$uId");
+        $move = $conn->query("INSERT INTO `completed_task` VALUES('$userId','$title')");
         if($res){
             echo $checked;
         }else {
             echo "error";
         }
-        $conn2 = null;
+        $conn = null;
         exit();
     }
 }else {
