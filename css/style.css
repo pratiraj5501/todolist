@@ -1,5 +1,5 @@
 body {
-    background: #34495e;
+    background: #1f80e0;
   }
   
   * {
@@ -92,6 +92,7 @@ body {
   
   .todo-item h2 {
     display: inline-block;
+    overflow:scroll;
     padding: 5px 0px;
     font-size: 17px;
     font-family: sans-serif;

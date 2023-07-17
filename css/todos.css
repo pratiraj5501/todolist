@@ -6,6 +6,7 @@
     margin: auto;
     width:99.50%;
     overflow-x: hidden;
+    /* overflow-y: scroll; */
     height: 99vh;
      border: 1px solid red;
      background: #4c566a;;
@@ -31,12 +32,12 @@
     width: 100%;
     height: 70%;
 }
-.username{
+.username p{
 
     font-style: italic;
     font-size: 22px;
     margin-top: 1.3%;
-    margin-left: 65%;
+    margin-left: -95%;
 }
 .dropbtn {
     margin-top: 10%;
@@ -80,6 +81,7 @@
     border: 1px solid red;
     margin-top: 1%;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .userInput{
     margin-top: 2%;

@@ -30,15 +30,17 @@
             height: 70%;
         }
         .middle{
-            border: 1px solid red;
+            border: none;
             display: flex;
             flex-direction: column;
             justify-content: center;
             text-align: center;
             margin: auto;
             width: 35%;
-            height: 65vh; 
+            height: 75vh; 
             justify-content: center;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; 
+
         }
         .middle .second p{
             font-size: 2rem;
@@ -100,6 +102,18 @@
             
              text-decoration: underline;
         }
+        .first{
+            width: 100%;
+            height: 300px;
+        }
+        .first p img{
+            /* border: 1px solid red; */
+            width:100%
+            /* height:400px; */
+        }
+        #iconimg{
+            width: 70%;
+        }
 
     </style>
     <title>Get Started</title>
@@ -112,14 +126,15 @@
         </div>
 
         <div class="middle">
+
             <div class="first"> 
-                <p ><img src="images/checkme.webp" alt=""></p></div>
+                <p ><img src="./images/homeicon.jpg" id="iconimg" alt=""></p></div>
             <div class="second"> 
-                <p> PP's to do</p>  </div>
+                <p> PP's To-DO List</p>  </div>
             <div class="third"> 
                 <p id="list">To Do gives you focus, from <br>work to play.</p></div>
             <div class="forth">
-               <div class="text"> <p> <a href="loginAndSignup/login.html"> get started  </a></p></div>
+               <div class="text"> <p> <a href="loginAndSignup/login.php"> Get Started  </a></p></div>
             </div>
             <div class="fifth">
                 <p><a href="#">learn more</a></p>
