@@ -1,3 +1,9 @@
+<?php
+require_once 'db_scripts/connection.php';
+$connn->query("UPDATE `login_and_page_views` SET viewCount=viewCount+1;");
+$connn = null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

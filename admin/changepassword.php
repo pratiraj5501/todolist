@@ -44,11 +44,11 @@
                             <!-- Logo icon -->
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
-                                <img src="../img/logo.png" width="20px" alt="homepage" />
+                                <img src="../images/todo.png" width="30px" alt="homepage" />
                             </b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
-                            <span class="logo-text" style="color:black;font-size:2.1rem;">BusX
+                            <span class="logo-text" style="color:black;font-size:1.1rem;">PP's To Do List
                             </span>
                         </a>
                         <!-- ============================================================== -->
@@ -110,7 +110,7 @@
                             <li class="sidebar-item pt-2">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin.php" aria-expanded="false">
                                     <i class="fa fa-table" aria-hidden="true"></i>
-                                    <span class="hide-menu">Search Name</span>
+                                    <span class="hide-menu">Search By Email</span>
                                 </a>
                             </li>
                         </ul>
@@ -138,9 +138,9 @@
                         <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                             <div class="d-md-flex">
                                 <ol class="breadcrumb ms-auto">
-                                    <li><a href="#" class="fw-normal">Dashboard</a></li>
+                                    <li><a href="admin.php" class="fw-normal">Dashboard</a></li>
                                 </ol>
-                                <a href="../admin_login.php" class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Logout</a>
+                                <a href="login.php" class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                             <button  type="submit" onclick="logs()" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem; margin-left:auto; margin-right:auto; margin-bottom:30px;">Change Password</button>
                         </div>
                     </form>
-                    <footer class="footer text-center"> 2023 © BusX <a href="">wrappixel.com</a>
+                    <footer class="footer text-center"> 2023 © PP's To Do List <a href="">wrappixel.com</a>
                     </footer>
                     <!-- ============================================================== -->
                     <!-- End footer -->

@@ -12,12 +12,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+
+        .container{
+            display: flex;
+
+        }
+        .leftdiv img{
+         margin-top: 50px;
+            width: 500px;
+            
+        }
+        .rightdiv img{
+            margin-top: 50px;
+            margin-left:370px;
+            width: 650px;
+    
+        }
         body{
             background-image: url("./images/icon.jpeg");
             margin: 0;
             padding: 0;
             font-family: montserrat;
-            background: linear-gradient(120deg,#2980b9,#8e44ad);
+            /* background: linear-gradient(120deg,#2980b9,#8e44ad); */
             height: 100vh;
            overflow: hidden;
         }
@@ -137,12 +153,22 @@
     <title>Login</title>
 </head>
 <body>
+<div class="container"> 
+
+    <div class="leftdiv">
+        <img src="../images/trial1.jpeg" alt="">
+    </div>
     
     <div class="center">
         <h1>Login</h1>
         <?php
             if (isset($_GET['state']) and $_GET['state'] == "failed") {
                 echo "<h1 style='color:red;'>Login Failed, Wrong Creds</h1>";
+            }
+            else if(isset($_GET['state']) and $_GET['state'] == "logout"){
+                require_once '../db_scripts/connection.php';
+                $query = "UPDATE `login_and_page_views` SET loginCount=loginCount-1;";
+                $connn->query($query);
             } 
         ?>
         <form action="../db_scripts/userLogin.php" method="post">
@@ -161,10 +187,12 @@
                 <div class="signup_link">
                     Not a Member ? <a href="signUp.html">SignUp</a>
                 </div>
+                </form>
+                </div>
 
-
-        </form>
+    <div class="rightdiv">
+        <img src="../images/trial3.jpeg" alt="">
     </div>
-    
+</div>  
 </body>
 </html>

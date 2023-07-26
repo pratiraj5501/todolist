@@ -1,33 +1,28 @@
 <?php
 
-if(isset($_POST['id'])){
+if (isset($_POST['id'])) {
     require '../db_conn.php';
 
     $id = $_POST['id'];
     $userId = $_POST['user_id'];
 
-    if(empty($id)){
-       echo 'error';
-    }else {
-        $todos = $conn->prepare("SELECT * FROM active_tasks WHERE id=? AND user_id='$userId'");
+    if (empty($id)) {
+        echo 'error';
+    } else {
+        $uChecked = 1;
+        $todos = $conn->prepare("UPDATE active_tasks SET status=$uChecked WHERE id=?");
         $todos->execute([$id]);
 
-        $todo = $todos->fetch();
-        $uId = $todo['id'];
-        $checked = $todo['status'];
-        $title = $todo['title'];
-        $uChecked = $checked ? 0 : 1;
 
-        $res = $conn->query("UPDATE `active_tasks` SET status=$uChecked WHERE id=$uId");
-        $move = $conn->query("INSERT INTO `completed_task` VALUES('$userId','$title')");
-        if($res){
-            echo $checked;
-        }else {
-            echo "error";
+        if ($todo) {
+            echo 1;
+        } else {
+            echo 'error';
         }
         $conn = null;
+
         exit();
     }
-}else {
+} else {
     header("Location: ../todo.php?mess=error");
 }

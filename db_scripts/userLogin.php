@@ -13,6 +13,10 @@ if (mysqli_num_rows($result) > 0) {
     $_SESSION['user'] = $user;
     $result = mysqli_fetch_assoc($result);
     $_SESSION['user_id'] = $result['user_id'];
+
+    $query = "UPDATE `login_and_page_views` SET loginCount=loginCount+1;";
+    $connn->query($query);
+
     Redirect("../todo.php",true);
 }
 else {

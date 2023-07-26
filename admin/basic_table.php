@@ -47,11 +47,11 @@
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            <img src="../img/logo.png" width="20px" alt="homepage" />
+                            <img src="../images/todo.png" width="30px" alt="homepage" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text" style="color:black;font-size:2.1rem;">BusX
+                        <span class="logo-text" style="color:black;font-size:1  .1rem;">PP's To Do List
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -134,12 +134,12 @@
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Search Customer By Name</h4>
+                        <h4 class="page-title">Search Customer By Email</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <div class="d-md-flex">
                             <ol class="breadcrumb ms-auto">
-                                <li><a href="#" class="fw-normal">Dashboard</a></li>
+                                <li><a href="admin.php" class="fw-normal">Dashboard</a></li>
                             </ol>
                             <a href="../admin_login.php"
                                 class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Logout</a>
@@ -165,10 +165,10 @@
 
                             <form action="" method="GET">
                                 <div class="d-md-flex mb-3">
-                                    <h3 class="box-title mb-0">Check Tables For Name</h3>
+                                    <h3 class="box-title mb-0">Check Tables For Emails</h3>
 
                                     <div class="col-md-3 col-sm-4 col-xs-6 ms-auto" style="width:auto;">
-                                        <input type="text" name="name_query" placeholder="Enter the name"></input>
+                                        <input type="text" name="name_query" placeholder="Enter the email"></input>
                                     </div>
                                     <button type="submit"
                                         class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Search
@@ -179,64 +179,63 @@
                                 <table class="table no-wrap">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">Name</th>
+                                            <th class="border-top-0">User ID</th>
                                             <th class="border-top-0">Email</th>
-                                            <th class="border-top-0">Age</th>
-                                            <th class="border-top-0">Routes</th>
-                                            <th class="border-top-0">Dates (Y/M/D)</th>
+                                            <th class="border-top-0">DOB</th>
+                                            <th class="border-top-0">Completed Tasks</th>
+                                            <th class="border-top-0">Active Tasks</th>
                                         </tr>
                                     </thead>
                                     <tbody id="an">
                                         <?php
-                                        require "../db_scripts/login.php";
+                                        require "../db_scripts/connection.php";
                                         if (isset($_GET['name_query'])) {
 
-                                        $k = $_GET['name_query'];
-                                        $k[0] = '_'; // changing the first character of the name string
-                                        $all_tables = mysqli_query($conn, "SHOW TABLES");
-                                        // echo var_dump($all_tables);
-                                        while ($table_name = mysqli_fetch_array($all_tables)) {
-                                            // * Removing Date and Route from the table name
-                                        
+                                            $k = $_GET['name_query'];
+                                            $k[0] = '_'; // changing the first character of the name string
 
-                                            
-                                        
-                                            //^ Later Chamge the actual values of the table names and the forms too so we dont have to do this
-                                           
-
-                                            if ($sql = $conn->query("SELECT *
-                        FROM $table_name[0]
-                        WHERE name LIKE '$k%'")) {
-    while ($rows = mysqli_fetch_array($sql)) {
-        ?>
-        <tr>
-            <td>
-                <?php echo $rows['Name']; ?>
-            </td>
-            <td>
-                <?php echo $rows['Email']; ?>
-            </td>
-            <td>
-                <?php echo $rows['Age']; ?>
-            </td>
-            <td>
-                <?php echo $rows['Route'] ?>
-            </td>
-            <td>
-                <?php echo date('d-m-y', strtotime($rows['Date'])); ?>
-            </td>
-        </tr>
-        <?php
-    }
-} else {
-    ?>
-    <td colspan="4">The Entered Name Does Not Exist in the Database</td>
-    <?php
-}
+                                            if (
+                                                $sql = $connn->query("SELECT *
+                        FROM `creds`
+                        WHERE email LIKE '$k%'")
+                                            ) {
+                                                while ($rows = mysqli_fetch_assoc($sql)) {
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo $rows['user_id']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $rows['email']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $rows['dob']; ?>
+                                                        </td>
+                                                        
+                                                        <td>
+                                                        <?php
+                                                            $userid = $rows['user_id'];
+                                                            $query = $connn->query("SELECT `id` FROM `active_tasks` WHERE user_id='$userid' and status=1;");
+                                                             echo mysqli_num_rows($query);?>
+                                                        </td>
+                                                        <td>
+                                                        <?php 
+                                                            $userid = $rows['user_id'];
+                                                            $query = $connn->query("SELECT `id` FROM `active_tasks` WHERE user_id='$userid' and status=0;");
+                                                             echo mysqli_num_rows($query)?>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            } else {
+                                                ?>
+                                        <td colspan="4">The Entered Name Does Not Exist in the Database</td>
+                                        <?php
+                                            }
 
 
                                         }
-                                        }
+
                                         ?>
                                     </tbody>
                                 </table>
@@ -262,7 +261,7 @@
         <!-- ============================================================== -->
         <!-- footer -->
         <!-- ============================================================== -->
-        <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
+        <footer class="footer text-center"> 2021 © PP's To Do List <a
                 href="https://www.wrappixel.com/">wrappixel.com</a>
         </footer>
         <!-- ============================================================== -->

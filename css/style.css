@@ -92,7 +92,11 @@ body {
   
   .todo-item h2 {
     display: inline-block;
-    overflow:scroll;
+    width: 100%;
+    overflow-x:hidden;
+    
+    /* overflow:scroll; */
+    overflow-y: auto;
     padding: 5px 0px;
     font-size: 17px;
     font-family: sans-serif;
@@ -147,4 +151,10 @@ body {
     font-size: 16px;
     text-align: center;
     color: #cccc;
+  }
+  .dropdown p {
+    color: #1f80e0;
+    font-size: large;
+    margin-left: 55px;
+
   }

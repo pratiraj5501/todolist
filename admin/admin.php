@@ -1,12 +1,11 @@
 <?php
 
-// require '../db_scripts/view_count.php';
-// require '../db_scripts/earnings.php';
+require_once '../db_scripts/counts.php';
 
 session_start();
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
-    header("location: ../admin_login.php");
+if (!isset($_SESSION['username'])) {
+    header("location: login.php");
     exit;
 }
 
@@ -25,7 +24,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
     <meta name="description"
         content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>BusX Admin Panel</title>
+    <title>PP's To-Do</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
     <!-- <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png"> -->
@@ -55,13 +54,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
-                            <img src="../img/logo.png" width="20px" alt="homepage" />
+                            <img src="../images/todo.png" width="30px" alt="homepage" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
-                            <em style="color:black; font-size:2.1rem; ">BusX</em>
+                            <em style="color:black; font-size:1.1rem; ">PP's To Do List</em>
                         </span>
                     </a>
 
@@ -100,7 +99,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="basic_table.php"
                                 aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Search Name</span>
+                                <span class="hide-menu">Search By Email</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -110,28 +109,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                 <span class="hide-menu">Change Password</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="../db_scripts/AutorunStatusExpiredScript.php" aria-expanded="false">
-                                <i class="bi bi-ticket-detailed"></i>
-                                <span class="hide-menu" style="color: red;">Make Ticket Expire </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="../db_scripts/refund_table.php" aria-expanded="false">
-                                <i class="bi bi-ticket-detailed"></i>
-                                <span class="hide-menu" style="color: red;"> Refund Users </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="../db_scripts/refund_records.php" aria-expanded="false">
-                                <i class="bi bi-ticket-detailed"></i>
-                                <span class="hide-menu" style="color: red;"> Refund Records </span>
-                            </a>
-                        </li>
-
+                        
                     </ul>
 
                 </nav>
@@ -154,7 +132,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                             <ol class="breadcrumb ms-auto">
                                 <li><a href="#" class="fw-normal">Dashboard</a></li>
                             </ol>
-                            <a href="../admin_login.php" //& Add another script as bridge to start and stop the sessions
+                            <a href="login.php"
                                 class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Logout</a>
                         </div>
                     </div>
@@ -167,7 +145,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Seats Booked</h3>
+                            <h3 class="box-title">Active Logins</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
                                     <div id="sparklinedash"><canvas width="67" height="30"
@@ -175,7 +153,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                     </div>
                                 </li>
                                 <li class="ms-auto"><span class="counter text-success">
-                                        <?php echo $total_seats; ?>
+                                        <?php echo $active_logins; ?>
                                     </span></li>
                             </ul>
                         </div>
@@ -190,14 +168,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                     </div>
                                 </li>
                                 <li class="ms-auto"><span class="counter text-purple">
-                                        <?php echo $total_views; ?>
+                                        <?php echo $page_views; ?>
                                     </span></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12">
                         <div class="white-box analytics-info">
-                            <h3 class="box-title">Total Earnings Rs</h3>
+                            <h3 class="box-title">Total Tasks Completed</h3>
                             <ul class="list-inline two-part d-flex align-items-center mb-0">
                                 <li>
                                     <div id="sparklinedash3"><canvas width="67" height="30"
@@ -205,169 +183,33 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
                                     </div>
                                 </li>
                                 <li class="ms-auto"><span class="counter text-info">
-                                        <?php echo $total_earnings; ?>
+                                        <?php echo $completedTasks; ?>
                                     </span>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="white-box">
-
-                            <form action="" method="get">
-                                <div class="d-md-flex mb-3">
-                                    <h3 class="box-title mb-0">Check Tables</h3>
-                                    <input class="col-md-3 col-sm-4 col-xs-6 ms-auto" type="date" id="start" name="day"
-                                        value="">
-                                    <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                        <select name="route" id="locations"
-                                        class="form-select shadow-none row border-top">
-                                            <option value=""> Choose route here</option>                                             
-                                            <?php
-                                            require_once "../db_scripts/admindb.php";
-                                            $query = "select * from fares"; //fetching the available routes from the db
-                                            $result = mysqli_query($conn, $query);
-                                            
-                                            $route = $result->fetch_all();
-                                             foreach ($route as $key => $value) {
-                                            ?>   
-                                                <option value="<?php echo $value[0]; ?>"><?php echo $value[0]; ?></option>
-                                                <?php
-                                            } ?>
-                                        </select>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Total Tasks</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash3"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                                     </div>
-                                    <button type="submit" id="selectedDat"
-                                        class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Search</button>
-                                </div>
-                            </form>
-                                  
-                            <div class="table-responsive">
-                                <table class="table no-wrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">Name</th>
-                                            <th class="border-top-0">Email</th>
-                                            <th class="border-top-0">Age</th>
-                                            <th class="border-top-0">Gender</th>
-                                            <th class="border-top-0">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="an">
-                                        <?php
-
-                                        try {
-                                            require "../db_scripts/login.php";
-                                            if (isset($_GET['route']) and isset($_GET['day'])) {
-                                                
-                                            $k = $_GET['route'] . $_GET['day'];
-                                            $root = $_GET['route'];
-
-                                            $table_name = str_replace('-', '', $k);
-
-
-                                            // Execute the SQL query and fetch the result  
-                                            if ($sql = $conn->query("SELECT * from $table_name WHERE Age>0")) {
-                                                
-                                                while ($rows = mysqli_fetch_array($sql)) {
-                                                    ?>
-                                                    
-                                                    <tr>
-                                                        <td>
-                                                            <?php echo $rows['Name']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $rows['Email']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $rows['Age']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $rows['Gender']; ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php echo $rows['Status']; ?>
-                                                        </td>
-                                                    </tr>
-
-                                                    <?php
-
-                                                }
-                                                echo '<button onclick="printTable()" class="button">Print</button>';
-
-                                                
-                                                $sql2 = "SELECT COUNT(*) AS seatCount FROM $table_name WHERE IsTaken=1";
-                                                $result = mysqli_query($conn, $sql2);
-                                                if ($result) {
-                                                    // Fetch the result
-                                                    $row = mysqli_fetch_assoc($result);
-                                                    $seatCount = $row['seatCount'];
-                                            
-                                                    // Print the count of booked seats
-                                                    echo "Number of Booked Seats: " . $seatCount ." <br>";
-                                                } else {
-                                                    echo "Query error: " . mysqli_error($conn);
-                                                }
-                                                if (isset($_GET['route']) && isset($_GET['day'])) {
-                                                    $selectedRoute = $_GET['route'];
-                                                    $selectedDate = $_GET['day'];
-                                                
-                                                    $formattedDate = date("d-m-Y", strtotime($selectedDate));
-                                                  
-                                                    echo " Date: $formattedDate <br>";
-                                                    echo " Route: $selectedRoute";
-                                                }
-                                                $hn = "localhost";
-                                                $un = "root";
-                                                $pw = "";
-                                                $db = "login";
-                                                // Connect to the database
-                                                $conn2 = mysqli_connect($hn, $un, $pw, $db);
-                                                $faresQuery = "SELECT Amount FROM fares WHERE Route = '$selectedRoute'";
-                                                $faresResult = mysqli_query($conn2, $faresQuery);
-                                                if ($faresResult) {
-                                                    $faresRow = mysqli_fetch_assoc($faresResult);
-                                                    $amount = $faresRow['Amount'];
-                                                    // Calculate the total amount
-                                                    $totalAmount = $amount * $seatCount;
-                                                    // Print the total amount
-                                                    echo "<br>Total Earning Amount : -  " . $totalAmount;
-                                                } else {
-                                                    echo "Fares query error: " . mysqli_error($conn);
-                                                }
-                                            } else {
-                                                echo "Seats query error: " . mysqli_error($conn);
-                                            }    
-                                                
-
-                                                // Close the database connection
-                                                mysqli_close($conn);
-
-
-                                            }
-
-                                        
-                                        }
-
-                                        //catch exception
-                                        catch (Exception $e) {
-                                            echo "<h5 style=color:red>!! On This Date , Data is Not avaible Please chnage Date.</h5>";
-                                        }
-
-                                    
-
-
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-info">
+                                        <?php echo $totalTasks; ?>
+                                    </span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+
                 </div>
 
-                <footer class="footer text-center"> 2022 © BusX</footer>
+                <footer class="footer text-center"> 2023 © PP's To Do List</footer>
             </div>
 
         </div>
@@ -393,18 +235,18 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
         <script>
             document.getElementById('start').valueAsDate = new Date();
         </script>
-       <script>
-  function printTable() {
-    // Create a new window for printing
-    var printWindow = window.open('', '_blank');
+        <script>
+            function printTable() {
+                // Create a new window for printing
+                var printWindow = window.open('', '_blank');
 
-    // Generate the HTML content to be printed
-    var tableHTML = document.getElementById('an').outerHTML;
-  var formattedDate = "<?php echo $formattedDate; ?>";
-  var selectedRoute = "<?php echo $selectedRoute; ?>";
-  var totalAmount = "<?php echo $totalAmount; ?>";
-  var seatCount = "<?php echo $seatCount; ?>";
-    var receiptHTML = `
+                // Generate the HTML content to be printed
+                var tableHTML = document.getElementById('an').outerHTML;
+                var formattedDate = "<?php echo $formattedDate; ?>";
+                var selectedRoute = "<?php echo $selectedRoute; ?>";
+                var totalAmount = "<?php echo $totalAmount; ?>";
+                var seatCount = "<?php echo $seatCount; ?>";
+                var receiptHTML = `
       <html>
       <head>
         <title>Print</title>
@@ -499,38 +341,38 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
       </html>
     `;
 
-    // Set the HTML content of the print window
-    printWindow.document.open();
-    printWindow.document.write(receiptHTML);
-    printWindow.document.close();
+                // Set the HTML content of the print window
+                printWindow.document.open();
+                printWindow.document.write(receiptHTML);
+                printWindow.document.close();
 
-    // Call the print function of the print window
-    printWindow.print();
-  }
-</script>
+                // Call the print function of the print window
+                printWindow.print();
+            }
+        </script>
 
-<style>
-  .button {
-    background-color: red;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 17px;
-    padding: 10px 30px;
-    text-decoration: none;
-    margin-top: 20px;
-    display: inline-block;
-    float: right;
-    right: 20px;
-    bottom: 20px;
-    z-index: 999;
-    cursor: pointer;
-  }
+        <style>
+            .button {
+                background-color: red;
+                color: white;
+                font-size: 16px;
+                border: none;
+                border-radius: 17px;
+                padding: 10px 30px;
+                text-decoration: none;
+                margin-top: 20px;
+                display: inline-block;
+                float: right;
+                right: 20px;
+                bottom: 20px;
+                z-index: 999;
+                cursor: pointer;
+            }
 
-  .button:hover {
-    background-color:black;
-  }
-</style>
+            .button:hover {
+                background-color: black;
+            }
+        </style>
 
 </body>
 
