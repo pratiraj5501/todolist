@@ -4,11 +4,11 @@ $user ="root";
 $pass =""; 
 $db ="to-do-list";
 
-$conn = mysqli_connect($host,$user,$pass,$db);
+$connn = mysqli_connect($host,$user,$pass,$db);
 
-if (!$conn) {
+if (!$connn) {
     echo "Connection is failed <br>";
-    mysqli_close($conn);
+    mysqli_close($connn);
 }
 
 //A function to redirect users to other web-pages

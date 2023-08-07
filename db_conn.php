@@ -3,12 +3,12 @@
 $sName = "localhost";
 $uName = "root";
 $pass = "";
-$db_name = "todo";
+$db_name = "to-do-list";
 
 try {
-    $conn2 = new PDO("mysql:host=$sName;dbname=$db_name", 
+    $conn = new PDO("mysql:host=$sName;dbname=$db_name", 
                     $uName, $pass);
-    $conn2->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }catch(PDOException $e){
   echo "Connection failed : ". $e->getMessage();
 }
